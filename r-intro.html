@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Introduction to R</title>
+
+        <meta name="description" content="Introduction to R">
+        <meta name="author" content="Ranjeet Singh">
+
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/serif.css" id="theme">
+
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="lib/css/atom-one-light.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+
+        <!--[if lt IE 9]>
+            <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+        
+       
+
+
+    </head>
+
+    <body>
+
+        <div class="reveal">
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+                <section data-background-image="pics/python_workshop/title.png" style="color:white">
+                    <h2 style="color:white" > Introduction to R </h2>
+                    <h2 style="color:white" > ... </h2>
+                    <p style="text-align:left font-size:20px color:white" >
+		     Instructors: Ranjeet, Suyogya, Mike, Nick, Asad<br>
+		     <br>
+		    <!-- Helpers: Suyogya & Nick  &nbsp;&nbsp;   &nbsp;&nbsp;   <br> 
+	            Ranjeet Singh <br> 
+                    Fan Cheng <br>	   
+                    Rakshita Godahewa <br> -->
+                     </p> 
+        
+                    <p> Schedule: 10:00am-2:30pm;  20-21/09/2021 </p>
+            </section>
+          </section>
+
+
+
+                <section>
+                  <h2>Contents</h2>
+                  <ul id="fragments">
+                    <li class="fragment"> R introduction </li>  <!--- What is R & why should you learn R? --->
+                    <li class="fragment"> R basics</li> <!--- - syntax, variables, and data types --->
+                    <li class="fragment"> Data analysis using tidyverse</li>
+                    <li class="fragment"> Data visualization with ggplot2</li>
+                    <li class="fragment"> Summarizing the results</li>
+                    <li class="fragment"> Q&A</li>
+                  </ul>
+                </section>
+
+            <section>
+              <h2>What is R?</h2>
+              <ul>
+                <li class="fragment"> A language and environment for statistical computing and graphics</li>
+                <li class="fragment"> It includes linear and nonlinear modelling, classical statistical tests, time-series analysis, classification, clustering, and many more.</li>
+                <!---li class="fragment"> Developed by: Ross Ihaka and Robert Gentleman </li>
+                <li class="fragment"> First release: August 1993, Current release: 4.0.2 - June 22, 2020  </li--->
+              </ul>
+            </section>
+
+            <section>
+              <h2>Why Learn R?</h2>
+              <ul>
+		<li class="fragment"> Easy to learn and easy to use</li>
+                <li class="fragment"> Large number of inbuilt tools for statistical analysis</li>
+		<li class="fragment"> Huge collection of open source packages</li>
+		<li class="fragment"> Vast community in both academia and business</li>
+                <li class="fragment"> Supports reproducible research</li>
+                <li class="fragment"> Open source, so it’s free</li>
+                <li class="fragment"> Cross-plateform compatible</li>
+                
+              </ul>
+            </section>
+
+
+             <section>
+                  <h2> Data Analysis</h2>
+                  <img  class="r-stretch" src="pics/r-intro/1.png" style="background:none; border:none; box-shadow:none;">
+                  <p style="font-size:25px" > “R for Data Science” book </p>
+                </section>
+                <section>
+                  <h2> Further Workshops</h2>
+                  <img  class="r-stretch" src="pics/r-intro/2.png" style="background:none; border:none; box-shadow:none;">
+                </section>
+		
+		
+	     <section data-transition="concave">
+                    <h2> Online Interaction </h2>
+                    <ul>
+                        <li class="fragment">Use slack for asking questions; <span class="fragment highlight-red"> Avoid Zoom chat!</span> </li>
+                        <li class="fragment">Use non-verbal feedback 
+			 <img  class="r-stretch" src="pics/Screen Shot 2021-05-23 at 6.24.15 pm.png" style="background:none; border:none; box-shadow:none;"> </li>
+                        <li class="fragment">Keep your webcam on </li>
+                    </ul>
+             </section>
+
+
+            <!---section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom">
+              <h2> Ice Breaker </h2>
+              <ul>
+                <li> Introduce yourself in the breakout rooms</li>
+                <li> Discuss with people in your room what kind of data you work with</li>
+              </ul>
+            </section--->
+
+
+              <section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom">
+                <p style="font-size:60px" > Let's dive into demo! </p>
+              </section>
+
+
+                <section>
+                    <h2> Back-up Slides </h2>
+                </section>
+
+				<section id="transitions">
+					<h2>Transition Styles</h2>
+					<p>
+						Select Transition: <br>
+						<a href="?transition=none#/transitions">None</a> -
+						<a href="?transition=fade#/transitions">Fade</a> -
+						<a href="?transition=slide#/transitions">Slide</a> -
+						<a href="?transition=convex#/transitions">Convex</a> -
+						<a href="?transition=concave#/transitions">Concave</a> -
+						<a href="?transition=zoom#/transitions">Zoom</a>
+					</p>
+				</section>
+
+				<section id="themes">
+					<h2>Themes</h2>
+					<p>
+						Select theme: <br>
+						<!-- Hacks to swap themes after the page has loaded. Not flexible and only intended for the reveal.js demo deck. -->
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/black.css'); return false;">Black</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/white.css'); return false;">White</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/league.css'); return false;">League</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/sky.css'); return false;">Sky</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/beige.css'); return false;">Beige</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/simple.css'); return false;">Simple</a> <br>
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/serif.css'); return false;">Serif (default)</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/blood.css'); return false;">Blood</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/night.css'); return false;">Night</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/moon.css'); return false;">Moon</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/solarized.css'); return false;">Solarized</a>
+					</p>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+        autoAnimateEasing: 'ease-out',
+        autoAnimateDuration: 0.8,
+        autoAnimateUnmatched: false,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/math/math.js', async: true }
+				]
+			});
+			
+			Reveal.configure({ slideNumber: true });
+			Reveal.configure({ slideNumber: 'c' });
+			//Reveal.configure({ slideNumber: 'c/t' });
+			//Reveal.configure({ showSlideNumber: 'speaker' });
+		</script>
+
+	</body>
+</html>

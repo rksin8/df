@@ -1,0 +1,241 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <meta name="description" content="The dumux multidomain framework">
+        <meta name="author" content="Timo Koch">
+
+        <title>DuMuX multidomain framework</title>
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/black.css">
+
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="lib/css/atom-one-light.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+
+                <!-- Main menu -->
+                <section data-background-image="./pics/root4.png">
+                    <img class="plain" data-src="./pics/dumux_logo.svg" height="150px">
+                    <h1> The DuMu<sup>x</sup> multidomain framework </h1>
+                </section>
+
+                <section data-background-color="white">
+                    <h2> Coupling multiple domains </h2>
+                    <img class="plain" data-src="./pics/multidomain.svg" height="400px">
+                </section>
+
+                <section data-background-color="white">
+                    <h2> The DuMu<sup>x</sup> multidomain framework </h2>
+                    <h2> Design goals </h2>
+                    <font size="6">
+                        <ul>
+                            <li> Reuse existing DuMu<sup>x</sup> models in the coupled setting </li>
+                            <br>
+                            <li> Extensible to more than two subdomains </li>
+                            <br>
+                            <li> Common structure for different coupling modes </li>
+                        </ul>
+                    </font>
+                </section>
+
+                <section data-background-color="white">
+                    <h2> DuMu<sup>x</sup> multidomain: general structure </h2>
+                    <img class="plain" data-src="./pics/mdstructure.png" height="400px">
+                </section>
+
+                <section data-background-color="white">
+                    <h2> The sub problems </h2>
+                    <font size="6">
+                        <ul>
+                            <li> any DuMu<sup>x</sup> problem with
+                                <ul>
+                                <li>initial conditions</li>
+                                <li>boundary conditions</li>
+                                <li>associated DuMu<sup>x</sup> model</li>
+                                </ul>
+                            </li>
+                            <br>
+                            <li> get a pointer to the coupling manager </li>
+                        </ul>
+                    </font>
+                </section>
+
+                <section data-background-color="white">
+                    <h2> The coupling manager </h2>
+                    <font size="6">
+                        <ul>
+                            <li> Transfer data from one subproblem to another
+                                <ul>
+                                <li>e.g. give me the soil pressure (from the well domain)</li>
+                                <li>e.g. give me the radius of the embedded well (from the soil domain)</li>
+                                </ul>
+                            </li>
+                            <br>
+                            <li> Compute the coupling stencil </li>
+                            <li> Compute the coupling residual (numerical differentiation) </li>
+                        </ul>
+                    </font>
+                </section>
+
+                <section data-background-image=./pics/pa02_title_background_bw.jpg data-transition="zoom">
+                    <div style="background:white;height:170px;width=100px">
+                        <h1 style="color:black;"> Example: embedded fracture model </h1>
+                    </div>
+                </section>
+
+                <section data-background-color="white">
+                    <h2> Example: embedded fracture model </h2>
+                    <h2> (coupling residual) </h2>
+                    <p>
+                        <font size="5">
+                            \begin{equation}
+                              \begin{aligned}
+                                    \frac{\partial \rho \phi}{\partial t} - \nabla\cdot \left[ \frac{\rho}{\mu}\mathbf{K_m} (\nabla p_m - \rho \mathbf{g}) \right] - q \delta_\Gamma = 0 \quad \text{in} \, \Omega \\
+                                    \frac{\partial \rho \phi}{\partial t} - \nabla_\tau\cdot \left[ \frac{\rho}{\mu}\mathbf{K_f} (\nabla p_f - \rho \mathbf{g}) \right] + q = 0 \quad \text{in} \, \Lambda \\
+                                    q = \zeta (p_f - p_m) \quad \text{and} \quad \Gamma = \Omega \cap \Lambda
+                              \end{aligned}
+                            \end{equation}
+                        </font>
+                    </p>
+                </section>
+
+                <section data-background-color="white" data-markdown>
+                    <textarea data-template>
+                    ## Example: embedded fracture model
+                    ## (coupling residual / data transfer)
+
+                    ```c++
+                    /*!
+                     * \brief A point source at every integration point for the coupling source term
+                     */
+                    void pointSource(PointSource& source, ...) const
+                    {
+                        // get the pressures
+                        const Scalar pressure3D = this->couplingManager().bulkPriVars(source.id())[Indices::pressureIdx];
+                        const Scalar pressure2D = this->couplingManager().lowDimPriVars(source.id())[Indices::pressureIdx];
+
+                        // calculate the source
+                        const Scalar meanDistance = this->couplingManager().averageDistance(source.id());
+                        const Scalar sourceValue = rho*(pressure2D - pressure3D)/meanDistance*matrixPerm/mu;
+                        source = sourceValue*source.quadratureWeight()*source.integrationElement();
+                    }
+                    ```
+                    </textarea>
+                </section>
+
+                <section data-background-color="white" data-markdown>
+                    <textarea data-template>
+                    ## Example: embedded fracture model
+                    ## (coupling residual)
+
+                    ```c++
+                    /*!
+                     * \brief evaluates the element residual of a coupled element of domain i which depends on the variables
+                     *        at the degree of freedom with index dofIdxGlobalJ of domain j
+                     */
+                    template<std::size_t i, std::size_t j, class LocalAssemblerI>
+                    auto evalCouplingResidual(Dune::index_constant<i> domainI,
+                                              const LocalAssemblerI& localAssemblerI,
+                                              Dune::index_constant<j> domainJ,
+                                              std::size_t dofIdxGlobalJ)
+                    {
+                        typename LocalAssemblerI::LocalResidual::ElementResidualVector residual;
+
+                        const auto& element = localAssemblerI.element();
+                        const auto& fvGeometry = localAssemblerI.fvGeometry();
+                        const auto& curElemVolVars = localAssemblerI.curElemVolVars();
+
+                        residual.resize(fvGeometry.numScv());
+                        for (const auto& scv : scvs(fvGeometry))
+                        {
+                            auto couplingSource = problem(domainI).scvPointSources(element, fvGeometry, curElemVolVars, scv);
+                            couplingSource *= -scv.volume()*curElemVolVars[scv].extrusionFactor();
+                            residual[scv.indexInElement()] = couplingSource;
+                        }
+                        return residual;
+                    }
+                    ```
+                    </textarea>
+                </section>
+
+                <section data-background-color="white">
+                    <h2> Example: embedded fracture model </h2>
+                    <h2> (coupling stencil) </h2>
+                    <img class="plain" data-src="./pics/disc.png" height="300px">
+                </section>
+
+                <section data-background-color="white" data-markdown>
+                    <textarea data-template>
+                    ## Example: embedded fracture model
+                    ## (coupling stencil)
+
+                    ```c++
+                    /*!
+                     * \brief returns an iteratable container of all indices of degrees of freedom of domain j
+                     *        that couple with / influence the element residual of the given element of domain i
+                     */
+                    template<std::size_t i, std::size_t j>
+                    const CouplingStencil& couplingStencil(Dune::index_constant<i> domainI,
+                                                           const Element<i>& element,
+                                                           Dune::index_constant<j> domainJ) const
+                    {
+                        static_assert(i != j, "A domain cannot be coupled to itself!");
+
+                        const auto eIdx = problem(domainI).fvGridGeometry().elementMapper().index(element);
+                        if (couplingStencils(domainI).count(eIdx))
+                            return couplingStencils(domainI).at(eIdx);
+                        else
+                            return emptyStencil_;
+                    }
+                    ```
+                    </textarea>
+                </section>
+
+                <section data-background-color="white">
+                    <h2> Example: embedded fracture model </h1>
+                    <img class="plain" data-src="./pics/fracture.gif" height="500px">
+                </section>
+
+                <section data-background-color="white">
+                    <h2> Example: root water uptake </h1>
+                    <img class="plain" data-src="./pics/root.gif" height="500px">
+                </section>
+
+            </div>
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+
+        <script>
+            // More info about config & dependencies:
+            // - https://github.com/hakimel/reveal.js#configuration
+            // - https://github.com/hakimel/reveal.js#dependencies
+            Reveal.initialize({
+                transition: 'slide',
+                dependencies: [
+                    { src: 'plugin/markdown/marked.js' },
+                    { src: 'plugin/markdown/markdown.js' },
+                    { src: 'plugin/notes/notes.js', async: true },
+                    { src: 'plugin/math/math.js', async: true },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+                ]
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>DF Intro</title>
+
+        <meta name="description" content="Data Fluency Intro">
+        <meta name="author" content="Ranjeet Singh">
+
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="lib/css/atom-one-light.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+
+        <!--[if lt IE 9]>
+            <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+        
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+                <section data-background-image="pics/df_intro/df_intro_1.svg" data-background-transition='zoom' data-transition-speed="slow">
+                </section>
+
+                <section data-background-image="pics/df_intro/df_intro_2.svg" data-background-transition='zoom-in slide-out' data-transition-speed="slow">
+                  <h2> </h2>
+                </section>
+
+                <section data-background-image="pics/df_intro/df_intro_3.svg" data-background-transition='concave' data-transition-speed="slow">
+                  <h2> </h2>
+                </section>
+
+                <section data-background-image="pics/df_intro/df_intro_4.svg" data-background-transition='convex' data-transition-speed="slow">
+                  <h2> </h2>
+                </section>
+
+                <section data-background-image="pics/df_intro/df_intro_5.svg" data-background-transition='slide' data-transition-speed="slow">
+                  <h2> </h2>
+                </section>
+
+                <section data-background-image="pics/df_intro/df_intro_6.svg" data-background-transition='zoom-out slide-in' data-transition-speed="slow">
+                </section>
+                <!--
+                <section data-background-image="pics/python_workshop/4.svg" data-background-size="contain">
+                  <h2> </h2>
+                </section>
+               -->
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+        //shuffle: true,
+        loop: true,
+        //backgroundTransition: 'slide',
+        transitionSpeed: "slow",
+       
+
+				//transition: 'zoom', // none/fade/slide/convex/concave/zoom
+        autoSlide: 10000,    // advance automatically after 5000 ms
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/math/math.js', async: true }
+				]
+			});
+
+
+//Reveal.addEventListener( 'slidechanged', function( event ) {
+//    if( Reveal.isFirstSlide() ) {
+//        // Randomize the order again
+//        Reveal.shuffle();
+//        Reveal.transition("fade")
+//
+//        // Navigate to the first slide according to the new order
+//        Reveal.slide( 0, 0 );
+//    }
+//} );
+//			
+			//Reveal.configure({ slideNumber: true });
+			//Reveal.configure({ slideNumber: 'c' });
+			//Reveal.configure({ slideNumber: 'c/t' });
+			//Reveal.configure({ showSlideNumber: 'speaker' });
+		</script>
+
+	</body>
+</html>
