@@ -52,14 +52,20 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 		    <h3 style="color:white" >  Instructors: </h3>
                     <p style="text-align:left font-size:20px color:white" >
 	            	Ranjeet Singh  <br> 
+			Suyogya Taneja <br>
 			Aswin Paul <br>	   
-                    	Tyrone Chen <br>	  
-	            	Suyogya Taneja <br>
-			Samia Senzuti <br> 
-	            	 
+                    	Tyrone Chen <br>	      	 
                      </p> 
         
-                    <p> Schedule: 10:00am-2:30pm;  15-16/08/2022 </p>
+                 
+		<div id="current_date"></p>
+<script>
+date = new Date();
+year = date.getFullYear();
+month = date.getMonth() + 1;
+day = date.getDate();
+document.getElementById("current_date").innerHTML = "Schedule: 10:00 - 2:30 &nbsp &nbsp" + day + "-" + (day+1) + "/" + month + "/" + year;
+</script>
             </section>
           </section>
 
